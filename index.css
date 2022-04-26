@@ -1,0 +1,8 @@
+#hnmain { min-width: 796px; }
+
+td { font-family:Verdana, Geneva, sans-serif; font-size:10pt; color:#828282; }
+
+span.pagetop { font-family:Verdana, Geneva, sans-serif; font-size: 10pt; color:#222222; line-height:12px; }
+
+a:link    { color:#000000; text-decoration:none; }
+a:visited { color:#828282; text-decoration:none; }
