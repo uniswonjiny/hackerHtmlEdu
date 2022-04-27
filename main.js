@@ -52,7 +52,7 @@ templagejobs += `<tr><td colspan="2"></td><td class="subtext">
 
 const moreElement = `<tr class="morespace" style="height:10px"></tr>
 <tr><td colspan="2"></td>
-  <td class="title"><a href="news?p=2" class="morelink" rel="next">More(더보기)</a></td>    
+  <td class="title"><a  class="morelink" rel="next">More(더보기)</a></td>    
 </tr>`;
 
 const menuMoveEvent = (menuVal) => {
@@ -98,5 +98,9 @@ const menuMoveEvent = (menuVal) => {
   moreBtn.innerHTML = moreElement;
   content.appendChild(moreBtn);
 
+  // 더보기 버튼에 이벤트 추가하기
+
+moreBtn = document.querySelector('.morelink');
+moreBtn.addEventListener("click" , ()=> alert('더보기'))
 }
 
