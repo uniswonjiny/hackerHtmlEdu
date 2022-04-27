@@ -50,6 +50,10 @@ templagejobs += `<tr class="athing" id="31169959">
 templagejobs += `<tr><td colspan="2"></td><td class="subtext">
 <span class="age" title="2022-04-26T17:00:54"><a href="item?id=31169959">13 hours ago</a></span>      </td></tr>`;
 
+const moreElement = `<tr class="morespace" style="height:10px"></tr>
+<tr><td colspan="2"></td>
+  <td class="title"><a href="news?p=2" class="morelink" rel="next">More(더보기)</a></td>    
+</tr>`;
 
 const menuMoveEvent = (menuVal) => {
   // 메뉴영역 요소 가져오기
@@ -83,6 +87,16 @@ const menuMoveEvent = (menuVal) => {
       content.innerHTML = '';
       break;
   }
+
+  // more 더보기 버튼 만들기
+  // 더보기가 생성될 영역 선택하기
+   content = document.querySelector('.itemlist tbody');
+  // 더보기 요소 추가하기
+  let moreBtn = document.createElement("tr");
+  moreBtn.setAttribute('class','morespace')
+  moreBtn.setAttribute("style", "height:10px");
+  moreBtn.innerHTML = moreElement;
+  content.appendChild(moreBtn);
 
 }
 
