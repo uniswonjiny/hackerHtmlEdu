@@ -101,6 +101,9 @@ const menuMoveEvent = (menuVal) => {
   // 더보기 버튼에 이벤트 추가하기
 
 moreBtn = document.querySelector('.morelink');
-moreBtn.addEventListener("click" , ()=> alert('더보기'))
+moreBtn.addEventListener("click" ,moreEventhandler)
 }
 
+const moreEventhandler = () => {
+  alert('더보기 선택')
+}
