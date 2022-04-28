@@ -3,6 +3,7 @@ const baseUrl = 'https://api.hnpwa.com/v0';
 let urlType = 'newest';
 let pageNum = 1;
 let dataArr = [];
+let addString = '( 더보기 )';
 
 // 데이터 가져오기
 const fethData = () => {
@@ -22,7 +23,7 @@ const fethData = () => {
 const htmlMaker = () =>{
     let template = '';
     dataArr.forEach((item , index ) =>{
-        template = `
+        template += `
             <tr class="athing" id=${item.id}>
                 <td align="right" valign="top" class="title">
                     <span class="rank">${(pageNum-1)*10+index+1}.</span>
@@ -50,6 +51,11 @@ const htmlMaker = () =>{
            <tr class="spacer" style="height:5px"></tr>
         `;
     });
+    // 더보기 버튼 처리
+
+    template +='<tr class="spacer" style="height:5px"></tr><tr class="spacer" style="height:5px"></tr>'
+    template +=`<tr><td colspan="2"></td><td class="title"><a href="javascript:void(0);" onclick="menuMoveEvent('', ${pageNum+1} );"  class="morelink" rel="next">More ${addString}</a></td></tr>`
+
     document.querySelector('.itemlist tbody').innerHTML = template;
 }
 
