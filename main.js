@@ -3,20 +3,24 @@ const baseUrl = 'https://api.hnpwa.com/v0';
 let urlType = 'newest';
 let pageNum = 1;
 let dataArr = [];
-let addString = '( 더보기 )';
 
 // 데이터 가져오기
 const fethData = () => {
     axios.get(`${baseUrl}/${urlType}/${pageNum}.json`)
         .then(res => {
             if(res.data.length === 0) {
-                alert('더이상 데이터가 없음')
+                alert('더이상 데이터가 없음');
+                // 불필요한 이벤트 차단하기 -- 서버에 부하는 주는 행동차단
+                document.querySelector('.morelink').remove();
                 return;
             }
             dataArr = dataArr.concat(res.data);
             htmlMaker();
         })
-        .catch(err => console.error(err))
+        .catch(err => {
+            console.error(err)
+            alert('서버 에러발생');
+        })
 }
 
 // 화면 구성하기 -- 한개의 포멧으로 다 구성한다.
@@ -54,9 +58,11 @@ const htmlMaker = () =>{
     // 더보기 버튼 처리
 
     template +='<tr class="spacer" style="height:5px"></tr><tr class="spacer" style="height:5px"></tr>'
-    template +=`<tr><td colspan="2"></td><td class="title"><a href="javascript:void(0);" onclick="menuMoveEvent('', ${pageNum+1} );"  class="morelink" rel="next">More ${addString}</a></td></tr>`
+
+    template +=`<tr><td colspan="2"></td><td class="title"><a href="javascript:void(0);" onclick="menuMoveEvent('', ${pageNum+1} );"  class="morelink" rel="next">More ( 더보기 )</a></td></tr>`
 
     document.querySelector('.itemlist tbody').innerHTML = template;
+
 }
 
 /**
@@ -68,15 +74,13 @@ const menuMoveEvent = (menuVal, pageVal) => {
     if(menuVal) urlType = menuVal;
     if(pageVal && pageVal> 0) pageNum = pageVal;
     else pageNum = 1;
-    if(pageNum === 1) dataArr = [];
+    if(pageNum === 1) {
+        dataArr = [];
+    }
     fethData();
 
     // 메뉴영역 요소 가져오기
     const aLinkArr = document.querySelectorAll('.pagetop a');
     // 메뉴영역 선택 관련 기능 선택한 메뉴만 두꺼운 하얀 글자로 표시
-    aLinkArr.forEach(el => el.innerText.toLowerCase().includes( menuVal.toLowerCase()) ? el.className = "topsel" : el.className = "");
-}
-
-const moreEventhandler = () => {
-    alert('더보기 선택')
+    aLinkArr.forEach(el => el.innerText.toLowerCase().includes( urlType.toLowerCase()) ? el.className = "topsel" : el.className = "");
 }
